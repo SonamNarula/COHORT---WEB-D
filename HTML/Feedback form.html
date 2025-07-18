@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Survey</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 198, 255, 0.2) 0%, transparent 50%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 79px, rgba(255, 255, 255, 0.03) 81px, transparent 82px),
+                linear-gradient(transparent 79px, rgba(255, 255, 255, 0.03) 81px, transparent 82px);
+            background-size: 82px 82px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(120, 119, 198, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.5; }
+            50% { transform: translateX(-50%) scale(1.1); opacity: 0.8; }
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #7877c6, #ff77c6, #77c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 30px rgba(120, 119, 198, 0.5);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #a0a0a0;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        .form-section {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(120, 119, 198, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 25px 45px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #7877c6, #ff77c6, #77c6ff, transparent);
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #7877c6;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        label::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, #7877c6, #ff77c6);
+            border-radius: 1px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 18px 25px;
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid rgba(120, 119, 198, 0.3);
+            border-radius: 15px;
+            color: #ffffff;
+            font-size: 1.1em;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #7877c6;
+            background: rgba(25, 25, 25, 0.95);
+            box-shadow: 
+                0 0 20px rgba(120, 119, 198, 0.4),
+                inset 0 0 20px rgba(120, 119, 198, 0.1);
+            transform: translateY(-2px);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%237877c6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,9 12,15 18,9"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 20px;
+            padding-right: 60px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 140px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #7877c6, #ff77c6);
+            color: #ffffff;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 15px 35px rgba(120, 119, 198, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 25px 50px rgba(120, 119, 198, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .instructions {
+            background: rgba(15, 15, 15, 0.6);
+            border: 1px solid rgba(255, 119, 198, 0.3);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 50px;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .instructions::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff77c6, transparent);
+        }
+
+        .instructions h3 {
+            font-family: 'Orbitron', monospace;
+            color: #ff77c6;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions li {
+            padding: 15px 0;
+            position: relative;
+            padding-left: 40px;
+            color: #c0c0c0;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        .instructions li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            top: 15px;
+            color: #77c6ff;
+            font-size: 1.2em;
+        }
+
+        .responses-section {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(119, 198, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .responses-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #77c6ff, transparent);
+        }
+
+        .responses-section h2 {
+            font-family: 'Orbitron', monospace;
+            color: #77c6ff;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 15px;
+            border: 1px solid rgba(119, 198, 255, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #77c6ff, #7877c6);
+            color: #ffffff;
+            padding: 20px 15px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            text-align: left;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+
+        td {
+            padding: 18px 15px;
+            border-bottom: 1px solid rgba(119, 198, 255, 0.2);
+            color: #c0c0c0;
+            font-weight: 300;
+            font-size: 1.1em;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(20, 20, 20, 0.5);
+        }
+
+        tr:hover {
+            background: rgba(120, 119, 198, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .form-section,
+            .instructions,
+            .responses-section {
+                padding: 25px;
+            }
+            
+            .submit-btn {
+                padding: 18px 40px;
+                font-size: 1.1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .form-section,
+            .instructions,
+            .responses-section {
+                padding: 20px;
+            }
+            
+            th, td {
+                padding: 12px 8px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Customer Feedback Survey</h1>
+            <p>Please take a moment to complete the survey below.</p>
+        </div>
+        
+        <!-- Survey Form -->
+        <div class="form-section">
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Your Age:</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="color">Favorite Color:</label>
+                    <select id="color" name="color">
+                        <option value="red">Red</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="yellow">Yellow</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedback">Your Feedback:</label>
+                    <textarea id="feedback" name="feedback" required placeholder="Share your thoughts and experiences..."></textarea>
+                </div>
+                
+                <input type="submit" value="Submit Survey" class="submit-btn">
+            </form>
+        </div>
+        
+        <!-- Survey Instructions -->
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <ul>
+                <li>Fill in your name and age in the first two fields.</li>
+                <li>Select your favorite color from the dropdown list.</li>
+                <li>Provide your feedback in the text box below.</li>
+                <li>Click the "Submit" button to submit your responses.</li>
+            </ul>
+        </div>
+        
+        <!-- Survey Responses Table -->
+        <div class="responses-section">
+            <h2>Survey Responses</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Favorite Color</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alice</td>
+                            <td>30</td>
+                            <td>Blue</td>
+                            <td>Great service! Keep it up.</td>
+                        </tr>
+                        <tr>
+                            <td>Bob</td>
+                            <td>25</td>
+                            <td>Green</td>
+                            <td>Would love to see more options.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
