@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0">
+    <title>Sonam's Techy Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(120deg, #f0fdfa 0%, #e0e7ff 100%);
+        }
+        .floating-emoji {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 50;
+            animation: floatEmoji 8s linear infinite;
+        }
+        @keyframes floatEmoji {
+            0% { opacity: 0; transform: translateY(100vh) scale(0.8) rotate(0deg);}
+            10% { opacity: 1;}
+            90% { opacity: 1;}
+            100% { opacity: 0; transform: translateY(-100px) scale(1.2) rotate(360deg);}
+        }
+        .pulse-card {
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px #a7f3d0;}
+            100% { box-shadow: 0 0 30px #38bdf8;}
+        }
+        .cute-cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #38bdf8 60%, transparent 100%);
+            pointer-events: none;
+            z-index: 100;
+            transition: transform 0.1s;
+            mix-blend-mode: lighten;
+        }
+        .blur {
+            filter: blur(2px);
+        }
+        .divider {
+            width: 100%;
+            height: 8px;
+            background: repeating-linear-gradient(90deg, #38bdf8 0 20px, #a7f3d0 20px 40px);
+            animation: moveDivider 2s linear infinite;
+        }
+        @keyframes moveDivider {
+            0% { background-position-x: 0;}
+            100% { background-position-x: 40px;}
+        }
+        .footer-anim {
+            animation: footerGlow 2s infinite alternate;
+        }
+        @keyframes footerGlow {
+            0% { box-shadow: 0 0 10px #38bdf8;}
+            100% { box-shadow: 0 0 30px #a7f3d0;}
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-teal-50 to-blue-50 min-h-screen relative overflow-x-hidden">
+
+    <!-- Floating Emojis -->
+    <div id="emoji-container"></div>
+    <!-- Cute Cursor -->
+    <div id="cute-cursor" class="cute-cursor"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg overflow-y-auto transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240429130139/employee.png"
+                     alt="Profile Picture" 
+                     class="rounded-full mx-auto mb-2 border-4 border-blue-200 pulse-card">
+                <h3 class="text-lg font-semibold text-blue-700">
+                    Sonam Narula
+                </h3>
+                <p class="text-gray-600">
+                    Full Stack Developer
+                </p>
+            </div>
+            <h4 class="text-xl font-semibold mb-2 text-teal-600">
+                About Me
+            </h4>
+            <div class="bg-blue-50 rounded-lg p-4 mb-6 pulse-card">
+                <p class="text-gray-700 mb-2">
+                    Hi! I'm Sonam, a passionate web developer, UI/UX enthusiast, and code artist. I love building cute, interactive, and techy web experiences. 💻✨
+                </p>
+                <p class="text-sm text-blue-400 italic">"Code is poetry written in logic, and every bug is just a plot twist!"</p>
+            </div>
+            <h4 class="text-xl font-semibold mb-2 text-teal-600">
+                Popular Posts
+            </h4>
+            <ul>
+                <li class="flex items-center mb-4 transition duration-300 ease-in-out transform hover:-translate-x-2">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240117155347/responsive-web-design-copy.webp"
+                         alt="Post Image" 
+                         class="w-16 h-16 object-cover rounded-md mr-2">
+                    <div>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="Responsive Web Design">
+                            Responsive Web Design
+                        </a>
+                        <p class="text-sm text-gray-600">
+                            March 21, 2024
+                        </p>
+                    </div>
+                </li>
+                <li class="flex items-center mb-4 transition duration-300 ease-in-out transform hover:-translate-x-2">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20230809133232/JavaScript-Complete-Guide-copy-2.webp"
+                         alt="Post Image" 
+                         class="w-16 h-16 object-cover rounded-md mr-2">
+                    <div>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="JavaScript Fundamentals">
+                            JavaScript Fundamentals
+                        </a>
+                        <p class="text-sm text-gray-600">
+                            March 18, 2024
+                        </p>
+                    </div>
+                </li>
+                <li class="flex items-center mb-4 transition duration-300 ease-in-out transform hover:-translate-x-2">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240507112025/75s2.png"
+                         alt="Post Image" 
+                         class="w-16 h-16 object-cover rounded-md mr-2">
+                    <div>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="CSS Flexbox Tutorial">
+                            CSS Flexbox Tutorial
+                        </a>
+                        <p class="text-sm text-gray-600">
+                            March 15, 2024
+                        </p>
+                    </div>
+                </li>
+                <li class="flex items-center mb-4 transition duration-300 ease-in-out transform hover:-translate-x-2">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20230821163330/HTML-Complete-Guide---A-to-Z-HTML-Concepts-2-copy.webp"
+                        alt="Post Image" 
+                        class="w-16 h-16 object-cover rounded-md mr-2">
+                    <div>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="HTML Basics">
+                            HTML Basics
+                        </a>
+                        <p class="text-sm text-gray-600">
+                            March 10, 2024
+                        </p>
+                    </div>
+                </li>
+                <li class="flex items-center mb-4 transition duration-300 ease-in-out transform hover:-translate-x-2">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20230713125158/Screenshot-2023-07-13-125103.png"
+                         alt="Post Image" 
+                         class="w-16 h-16 object-cover rounded-md mr-2">
+                    <div>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="CSS Grid Layout">
+                            CSS Grid Layout
+                        </a>
+                        <p class="text-sm text-gray-600">
+                            March 5, 2024
+                        </p>
+                    </div>
+                </li>
+                <li class="flex items-center mb-4 transition duration-300 ease-in-out transform hover:-translate-x-2">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240220145751/react-hooksr-tutorial-copy.webp"
+                         alt="Post Image" 
+                         class="w-16 h-16 object-cover rounded-md mr-2">
+                    <div>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="React Hooks">
+                            React Hooks
+                        </a>
+                        <p class="text-sm text-gray-600">
+                            February 28, 2024
+                        </p>
+                    </div>
+                </li>
+                <li class="flex items-center mb-4 transition duration-300 ease-in-out transform hover:-translate-x-2">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240601120000/ai-blog.png"
+                         alt="Post Image" 
+                         class="w-16 h-16 object-cover rounded-md mr-2">
+                    <div>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="AI in Everyday Life">
+                            AI in Everyday Life
+                        </a>
+                        <p class="text-sm text-gray-600">
+                            July 20, 2025
+                        </p>
+                    </div>
+                </li>
+                <li class="flex items-center mb-4 transition duration-300 ease-in-out transform hover:-translate-x-2">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240601121000/css-art.png"
+                         alt="Post Image" 
+                         class="w-16 h-16 object-cover rounded-md mr-2">
+                    <div>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="CSS Art">
+                            CSS Art
+                        </a>
+                        <p class="text-sm text-gray-600">
+                            July 22, 2025
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sidebar Toggle Button -->
+    <div id="sidebar-toggle" class="fixed top-0 left-0 p-4 cursor-pointer z-50 transition duration-300 ease-in-out transform hover:scale-110">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-8 w-8 text-gray-500 hover:text-gray-700" 
+             fill="none" viewBox="0 0 24 24" 
+             stroke="currentColor">
+            <path stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  d="M4 6h16M4 12h16m-7 6h7">
+            </path>
+        </svg>
+    </div>
+
+    <!-- Main Blog Content -->
+    <div class="container mx-auto py-8 px-4 md:px-0">
+        <h1 class="text-4xl font-bold text-center mb-8 text-blue-700 animate-bounce">
+            Welcome to Sonam's Techy Blog 💡
+        </h1>
+        <div class="divider mb-8"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Blog Post Cards -->
+            <div class="blog-post bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240117155347/responsive-web-design-copy.webp"
+                     alt="Blog Post Image" 
+                     class="w-full h-40 object-cover rounded-t-lg">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Responsive Web Design</h2>
+                    <p class="text-gray-700 mb-4">Learn how to create responsive web designs that look great on all devices.</p>
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm text-gray-600">March 21, 2024</p>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="Responsive Web Design">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-post bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240601120000/ai-blog.png"
+                     alt="AI Blog Post" 
+                     class="w-full h-40 object-cover rounded-t-lg">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">AI in Everyday Life</h2>
+                    <p class="text-gray-700 mb-4">Discover how artificial intelligence is transforming our daily routines and the tech behind it.</p>
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm text-gray-600">July 20, 2025</p>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="AI in Everyday Life">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-post bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240601121000/css-art.png"
+                     alt="CSS Art Post" 
+                     class="w-full h-40 object-cover rounded-t-lg">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">CSS Art</h2>
+                    <p class="text-gray-700 mb-4">Explore creative CSS art projects and learn how to make stunning visuals with pure CSS.</p>
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm text-gray-600">July 22, 2025</p>
+                        <a href="#" class="text-blue-500 hover:underline read-more" data-title="CSS Art">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more blog post cards here if you want -->
+        </div>
+        <!-- Community Section -->
+        <section class="mt-16 mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                <h2 class="text-2xl font-bold text-teal-600 mb-4 animate-bounce">Community Highlights 🌟</h2>
+                <p class="text-gray-700 mb-6">See what our learners are building and sharing!</p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="bg-blue-50 rounded-lg p-4 font-semibold text-blue-700 shadow pulse-card">🚀 Project Showcase</div>
+                    <div class="bg-blue-50 rounded-lg p-4 font-semibold text-blue-700 shadow pulse-card">💬 Forum Discussions</div>
+                    <div class="bg-blue-50 rounded-lg p-4 font-semibold text-blue-700 shadow pulse-card">🎨 UI Challenges</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 hidden fixed top-0 left-0 w-full h-full overflow-y-auto">
+        <div class="bg-white p-8 rounded-lg max-w-xl w-full modal-animate">
+            <h2 id="modal-title" class="text-2xl font-semibold mb-4"></h2>
+            <div id="modal-content" class="text-gray-700"></div>
+            <button id="close-modal" class="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 py-8 bg-blue-50 text-center footer-anim">
+        <div class="text-lg text-blue-700 font-semibold mb-2">Made with 💙 by Sonam Narula</div>
+        <div class="text-gray-600 mb-2">Follow me on 
+            <a href="https://github.com/SonamNarula" target="_blank" class="text-blue-500 hover:underline">GitHub</a> &middot; 
+            <a href="https://www.linkedin.com/in/sonam-narula-402a60285/" target="_blank" class="text-blue-500 hover:underline">LinkedIn</a>
+        </div>
+        <div class="text-sm text-blue-400">© 2025 Sonam's Techy Blog. All rights reserved.</div>
+    </footer>
+
+    <script>
+        // Cute floating emojis
+        const emojis = ['🦄','✨','💻','🌈','🎨','🚀','💡','👩‍💻','🧠','🎉','⭐','🦋','🌸'];
+        function spawnEmoji() {
+            const emojiDiv = document.createElement('div');
+            emojiDiv.className = 'floating-emoji';
+            emojiDiv.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emojiDiv.style.left = Math.random() * (window.innerWidth - 40) + 'px';
+            emojiDiv.style.top = '0px';
+            emojiDiv.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            document.getElementById('emoji-container').appendChild(emojiDiv);
+            setTimeout(() => emojiDiv.remove(), 8000);
+        }
+        setInterval(spawnEmoji, 2000);
+
+        // Cute cursor
+        const cursor = document.getElementById('cute-cursor');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            cursor.style.left = (cursorX - 12) + 'px';
+            cursor.style.top = (cursorY - 12) + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        document.querySelectorAll('a, button, .blog-post').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(1.5)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        });
+
+        // Sidebar toggle
+        const toggleButton = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            document.body.classList.toggle('blur');
+        });
+
+        // Modal logic
+        const readMoreLinks = document.querySelectorAll('.read-more');
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const closeModalButton = document.getElementById('close-modal');
+        readMoreLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const postTitle = link.dataset.title;
+                modalTitle.textContent = postTitle;
+                if (postTitle === 'Responsive Web Design') {
+                    modalContent.innerHTML = `
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240117155347/responsive-web-design-copy.webp" alt="Responsive Web Design" class="w-full mb-4 rounded">
+                        <p>Responsive Web Design refers to designing and developing websites that adapt to all devices and screen sizes. The goal is a seamless, user-friendly experience everywhere!</p>`;
+                } else if (postTitle === 'JavaScript Fundamentals') {
+                    modalContent.innerHTML = `
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20230809133232/JavaScript-Complete-Guide-copy-2.webp" alt="JavaScript Fundamentals" class="w-full mb-4 rounded">
+                        <p>JavaScript Fundamentals cover the basics of the language, enabling you to build interactive and dynamic web applications and work with popular frameworks.</p>`;
+                } else if (postTitle === 'CSS Flexbox Tutorial') {
+                    modalContent.innerHTML = `
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240507112025/75s2.png" alt="CSS Flexbox Tutorial" class="w-full mb-4 rounded">
+                        <p>Flexbox is a modern CSS layout model for distributing space and aligning items in a container. It's perfect for building flexible, responsive layouts!</p>`;
+                } else if (postTitle === 'HTML Basics') {
+                    modalContent.innerHTML = `
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20230821163330/HTML-Complete-Guide---A-to-Z-HTML-Concepts-2-copy.webp" alt="HTML Basics" class="w-full mb-4 rounded">
+                        <p>HTML is the foundation of web development. Learn about elements, attributes, forms, tables, links, images, and lists to build structured web pages.</p>`;
+                } else if (postTitle === 'CSS Grid Layout') {
+                    modalContent.innerHTML = `
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20230713125158/Screenshot-2023-07-13-125103.png" alt="CSS Grid Layout" class="w-full mb-4 rounded">
+                        <p>CSS Grid Layout lets you create complex, responsive layouts easily. Define grid containers and items for powerful two-dimensional designs.</p>`;
+                } else if (postTitle === 'React Hooks') {
+                    modalContent.innerHTML = `
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240220145751/react-hooksr-tutorial-copy.webp" alt="React Hooks" class="w-full mb-4 rounded">
+                        <p>React Hooks let you use state and lifecycle features in functional components. Write concise, modern React code with useState, useEffect, and more!</p>`;
+                } else if (postTitle === 'AI in Everyday Life') {
+                    modalContent.innerHTML = `
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240601120000/ai-blog.png" alt="AI in Everyday Life" class="w-full mb-4 rounded">
+                        <p>AI is everywhere! From smart assistants to personalized recommendations, learn how AI is shaping our world and how you can leverage it in your projects.</p>`;
+                } else if (postTitle === 'CSS Art') {
+                    modalContent.innerHTML = `
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240601121000/css-art.png" alt="CSS Art" class="w-full mb-4 rounded">
+                        <p>CSS Art is a creative way to make illustrations and graphics using only CSS. Explore techniques, tips, and inspiring examples to start your own CSS art journey!</p>`;
+                } else {
+                    modalContent.textContent = "Full details of " + postTitle + " go here.";
+                }
+                modal.classList.remove('hidden');
+            });
+        });
+        closeModalButton.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+    </script>
+</body>
